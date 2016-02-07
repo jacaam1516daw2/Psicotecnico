@@ -1,0 +1,32 @@
+/*web fonts http://www.google.com/webfonts#HomePlace:home */
+
+body {
+    font-family: 'Telex', sans-serif;
+}
+
+.DD {
+    width: 120px;
+    height: 120px;
+    padding: 0px;
+    border: 1px solid #aaaaaa;
+    margin: 0px;
+    cursor: pointer;
+    float: left;
+}
+
+td {
+    width: 120px;
+    height: 120px;
+}
+
+.clock {
+    border: 3px;
+    position: relative;
+    left: 0px;
+    top: 7px;
+}
+
+img {
+    width: 120px;
+    height: 120px;
+}

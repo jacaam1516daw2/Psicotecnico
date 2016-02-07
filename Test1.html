@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ca">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Psicotécnico</title>
+    <meta name="author" content="JCA" />
+    <link href='http://fonts.googleapis.com/css?family=Telex' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="estils.css">
+    <script type="text/javascript" src="Test.js"></script>
+</head>
+
+<body onload="cronometro()">
+    <h3><p id="nom"></p></h3>
+    <br>
+    <h3>Completa la secuencia:</h3>
+    <table>
+        <tr>
+            <td>
+                <div class="DD" id="div1"></div>
+            </td>
+            <td>
+                <div class="DD" id="div2"></div>
+            </td>
+            <td>
+                <div class="DD" id="div3"></div>
+            </td>
+            <td>
+                <div class="DD" id="div4"></div>
+            </td>
+            <td>
+                <div class="DD" id="div5"></div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4"></td>
+        </tr>
+        <tr>
+            <td>
+                <div class="DD"><img id="drag1" src="imagenes/test1/anim4.png" draggable="true"></div>
+            </td>
+            <td>
+                <div class="DD"><img id="drag2" src="imagenes/test1/anim5.png" draggable="true"></div>
+            </td>
+            <td>
+                <div class="DD"><img id="drag3" src="imagenes/test1/anim2.png" draggable="true"></div>
+            </td>
+            <td>
+                <div class="DD"><img id="drag4" src="imagenes/test1/anim3.png" draggable="true"></div>
+            </td>
+            <td>
+                <div class="DD"><img id="drag5" src="imagenes/test1/anim1.png" draggable="true"></div>
+            </td>
+        </tr>
+    </table>
+
+    <div class="clock">
+        <h3>Tiempo:</h3>
+        <h2 id='crono'>00:00:00</h2>
+    </div>
+    <a href="Test2.html">
+        <input type="button" value="Siguiente" onclick="guardarTest('test1')" /> </a>
+
+</body>
+
+</html>

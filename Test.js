@@ -4,7 +4,6 @@ window.onload = function () {
     [].forEach.call(divs, function (item) {
         item.addEventListener('dragover', gestionarSobreDrag, false);
         item.addEventListener('drop', gestionarDrop, false);
-
     });
 
     var imatges = document.querySelectorAll('img');
@@ -18,22 +17,34 @@ window.onload = function () {
 
     function gestionarIniciDrag(ev) {
         ev.dataTransfer.setData("imatge", ev.target.id);
+
     }
 
     function gestionarDrop(ev) {
+        /*
+        alert(ev.dataTransfer.getData("imatge"));
+        alert(ev.target.id);
+        */
+        var pos = parseInt(ev.target.id.substring(3, 4));
+        userArray[pos] = ev.dataTransfer.getData("imatge");
+
         ev.preventDefault();
-        var data = ev.dataTransfer.getData("imatge");
-        ev.target.appendChild(document.getElementById(data));
+        if (ev.target.nodeName !== "IMG") {
+            var data = ev.dataTransfer.getData("imatge");
+            ev.target.appendChild(document.getElementById(data));
+        }
     }
 };
 
 /**
  * INICIO Cronometro
  */
-
+var OK = true;
 var inicio = 0;
 var timeout = 0;
 var result = "";
+var userArray = [];
+var result = [];
 
 function cronometro() {
     mostrarDatos();
@@ -97,9 +108,51 @@ function mostrarDatos() {
  * Esta función guarda los datos de los resultados de cada uno de los test la base de datos
  */
 function guardarTest(test) {
-    alert(result);
-    localStorage.setItem(test + 'crono', result);
+    switch (test.charAt(test.length)) {
+    case 1:
+        result[1] = "drag5";
+        result[2] = "drag3";
+        result[3] = "drag4";
+        result[4] = "drag1";
+        result[5] = "drag2";
+        break;
+    case 2:
+        result[1] = "drag3";
+        result[2] = "drag1";
+        result[5] = "drag2";
+        break;
+    case 3:
+        result[1] = "drag3";
+        result[2] = "drag2";
+        result[3] = "drag4";
+        result[4] = "drag1";
+        break;
+    case 4:
+        result[1] = "drag2";
+        result[2] = "drag5";
+        result[3] = "drag3";
+        result[4] = "drag4";
+        result[5] = "drag1";
+        break;
+    }
+    resultTest(result, userArray);
+    localStorage.setItem(test + "_crono", document.getElementById("crono").value);
+    localStorage.setItem(test + "_result", OK);
     //localStorage.setItem(test + 'result', document.getElementById("result").value);
+}
+
+/**
+ * Validación de Test
+ */
+function resultTest(result, userArray) {
+    OK = true;
+    for (i = 1; i < result.length; i++) {
+        if (result[i] !== userArray[i]) {
+            OK = false;
+        }
+    }
+    result = [];
+    userArray = [];
 }
 
 /**
@@ -120,10 +173,32 @@ function resultado() {
     nom += " " + localStorage.getItem("apellido");
     document.getElementById("nom").innerHTML = nom;
 
+    /*  localStorage.getItem(test + "_crono");
+      localStorage.getItem(test + "_result");
+      */
     while (localStorage.getItem("test" + cont + 'crono') != null || localStorage.getItem("test" + cont + 'crono') != undefined) {
-        resultado = resultado + "Test " + cont + ' = ' + localStorage.getItem("test" + cont + 'crono') + "<br>";
-        //tiempo = tiempo + localStorage.getItem("test" + cont + 'crono');
+        resultado = resultado + "Test " + cont + ' = ' + localStorage.getItem("test" + cont + 'crono') +
+            if (localStorage.getItem("test" + cont + 'crono')) " <br>";
+
+
+
+        tiempo = calculaTiempoTotal(tiempo, localStorage.getItem("test" + cont + 'crono'));
         cont++;
     }
     document.getElementById("resultado").innerHTML = resultado;
+    document.getElementById("tiempo").innerHTML = tiempo;
+}
+
+function calculaTiempoTotal(tempsA, TempsB) {
+    var temps = stringToSeconds(tempsA) + stringToSeconds(TempsB);
+    return temps;
+}
+
+function stringToSeconds(tiempo) {
+    var sep1 = tiempo.indexOf(":");
+    var sep2 = tiempo.lastIndexOf(":");
+    var hor = tiempo.substr(0, sep1);
+    var min = tiempo.substr(sep1 + 1, sep2 - sep1 - 1);
+    var sec = tiempo.substr(sep2 + 1);
+    return (Number(sec) + (Number(min) * 60) + (Number(hor) * 3600));
 }

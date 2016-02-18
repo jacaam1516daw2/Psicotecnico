@@ -66,7 +66,6 @@ function funcionando() {
     // mostramos la diferencia entre la fecha actual y la inicial
     result = LeadingZero(diff.getUTCHours()) + ":" + LeadingZero(diff.getUTCMinutes()) + ":" + LeadingZero(diff.getUTCSeconds());
     document.getElementById('crono').innerHTML = result;
-
     // Indicamos que se ejecute esta función nuevamente dentro de 1 segundo
     timeout = setTimeout("funcionando()", 1000);
 }
@@ -136,7 +135,7 @@ function guardarTest(test) {
         break;
     }
     resultTest(result, userArray);
-    localStorage.setItem(test + "_crono", document.getElementById("crono").value);
+    localStorage.setItem(test + "_crono", document.getElementById("crono").innerHTML);
     localStorage.setItem(test + "_result", OK);
     //localStorage.setItem(test + 'result', document.getElementById("result").value);
 }
@@ -173,18 +172,19 @@ function resultado() {
     nom += " " + localStorage.getItem("apellido");
     document.getElementById("nom").innerHTML = nom;
 
-    /*  localStorage.getItem(test + "_crono");
+    /*
+        localStorage.getItem(test + "_crono");
       localStorage.getItem(test + "_result");
       */
-    while (localStorage.getItem("test" + cont + 'crono') != null || localStorage.getItem("test" + cont + 'crono') != undefined) {
-        resultado = resultado + "Test " + cont + ' = ' + localStorage.getItem("test" + cont + 'crono') +
-            if (localStorage.getItem("test" + cont + 'crono')) " <br>";
 
-
-
-        tiempo = calculaTiempoTotal(tiempo, localStorage.getItem("test" + cont + 'crono'));
+    while (localStorage.getItem('test' + cont + '_result') != null) {
+        var corno = localStorage.getItem('test' + cont + '_crono');
+        var result = localStorage.getItem('test' + cont + '_result');
+        resultado = resultado + 'Test ' + cont + ' = ' + corno + " " + result + "<br>";
+        //tiempo = calculaTiempoTotal(tiempo, localStorage.getItem("test" + cont + '_crono'));
         cont++;
     }
+
     document.getElementById("resultado").innerHTML = resultado;
     document.getElementById("tiempo").innerHTML = tiempo;
 }

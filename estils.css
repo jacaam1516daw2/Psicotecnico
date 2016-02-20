@@ -2,6 +2,7 @@
 
 body {
     font-family: 'Telex', sans-serif;
+    align-content: center;
 }
 
 .DD {
@@ -29,4 +30,9 @@ td {
 img {
     width: 120px;
     height: 120px;
+}
+
+.result {
+    width: 20px;
+    height: 20px;
 }

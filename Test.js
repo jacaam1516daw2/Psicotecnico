@@ -21,14 +21,14 @@ window.onload = function () {
     }
 
     function gestionarDrop(ev) {
-        /*
-        alert(ev.dataTransfer.getData("imatge"));
-        alert(ev.target.id);
-        */
+        // Cada vez que el usuario suelta un elemento lo guardamos en un array
+        // marcamos la posición segun el id del elemento por si corrige un elemento cambiandolo de posicion
+        // le restamos -1 para que en la validación del test coincidan las posiciones
         var pos = parseInt(ev.target.id.substring(3, 4));
-        userArray[pos] = ev.dataTransfer.getData("imatge");
+        userArray[pos - 1] = ev.dataTransfer.getData("imatge");
 
         ev.preventDefault();
+        // este condicional es para que no se puedan superponer varias imagenes en un elemento
         if (ev.target.nodeName !== "IMG") {
             var data = ev.dataTransfer.getData("imatge");
             ev.target.appendChild(document.getElementById(data));
@@ -36,9 +36,9 @@ window.onload = function () {
     }
 };
 
-/**
- * INICIO Cronometro
- */
+/*****************************************************************
+ ********************* INICIO Cronometro *************************
+ ******************************************************************/
 var OK = true;
 var inicio = 0;
 var timeout = 0;
@@ -74,18 +74,17 @@ function funcionando() {
 function LeadingZero(Time) {
     return (Time < 10) ? "0" + Time : +Time;
 }
-/**
- * FI Cronometro
- */
+/*****************************************************************
+ ********************* FIN Cronometro *************************
+ ******************************************************************/
+
+/*******************************************************************
+ ************** INICIO GESTION LOCALSTRAGE y VALIDACION TEST *******
+ *******************************************************************/
 
 /**
- * Base de datos localStorage
+ * Esta función guarda el nombre y apellidos del usuario en la base de datos localStorage
  */
-
-/**
- * Esta función guarda el nombre y apellidos del usuario en la base de datos
- */
-
 function guardarDatosIniciales() {
     // Guardamos el nombre y apellido en la base de datos del navegador
     localStorage.setItem("nombre", document.getElementById("nombre").value);
@@ -93,76 +92,84 @@ function guardarDatosIniciales() {
 }
 
 /**
- * Esta función guardados los datos en la base de datos del que realiza el test
+ * Esta función muestra los datos por pantalla de localStorage mientras realizas el test
  */
 function mostrarDatos() {
-    // Leemos los valores de las variables del navegador y las ponemos
-    // en una variable para posteriormente mostrarlo en el navegador
-    var nom = "Nombre: " + localStorage.getItem("nombre");
-    nom += " " + localStorage.getItem("apellido");
-    document.getElementById("nom").innerHTML = nom;
+    // Leemos los valores de las variables del navegador del localStorage y las mostramos por pantalla mientras realizamos el test
+    document.getElementById("nom").innerHTML = "Nombre: " + localStorage.getItem("nombre") + " " + localStorage.getItem("apellido");
 }
 
+
 /**
- * Esta función guarda los datos de los resultados de cada uno de los test la base de datos
+ *******************************************************************
+ ************************ INICIO VALIDACION TEST *******************
+ *******************************************************************
+ * Esta función guarda los datos de los resultados de cada uno de los test en localStorage
  */
 function guardarTest(test) {
-    switch (test.charAt(test.length)) {
-    case 1:
-        result[1] = "drag5";
-        result[2] = "drag3";
-        result[3] = "drag4";
-        result[4] = "drag1";
-        result[5] = "drag2";
+    //Con este switch llenamos result con las respuestas correctas del test
+    switch (test) {
+    case 'test1':
+        result = ["drag5", "drag3", "drag4", "drag1", "drag2"];
         break;
-    case 2:
-        result[1] = "drag3";
-        result[2] = "drag1";
-        result[5] = "drag2";
+    case 'test2':
+        result = ["drag3", "drag1", "drag2"];
         break;
-    case 3:
-        result[1] = "drag3";
-        result[2] = "drag2";
-        result[3] = "drag4";
-        result[4] = "drag1";
+    case 'test3':
+        result = ["drag3", "drag2", "drag4", "drag1"];
         break;
-    case 4:
-        result[1] = "drag2";
-        result[2] = "drag5";
-        result[3] = "drag3";
-        result[4] = "drag4";
-        result[5] = "drag1";
+    case 'test4':
+        result = ["drag2", "drag5", "drag3", "drag4", "drag1"];
         break;
     }
+
+    // Llamamos a la funcion que coteja el resultado correcto que contiene la array result
+    // con la que hemos llenado cada vez que el usuario ha soltado un elemento
     resultTest(result, userArray);
+    // Guardamos el resultado de cada test en localStorage
+    // ejemplo de lo que guarda: test1_crono = 00:00:05
+    // ejemplo de lo que guarda: test1_result = true o false
     localStorage.setItem(test + "_crono", document.getElementById("crono").innerHTML);
     localStorage.setItem(test + "_result", OK);
-    //localStorage.setItem(test + 'result', document.getElementById("result").value);
 }
 
 /**
- * Validación de Test
+ * Validación de cada Test
  */
 function resultTest(result, userArray) {
     OK = true;
-    for (i = 1; i < result.length; i++) {
+    // recorremos el array de resultados correctos que previamente hemos llenado en la funcion guardarTest
+    //  y lo comparamos con la posicion de i con el array que se ha llenado cada vez que el usuario
+    // soltaba un elemento en la funcion gestionarDrop
+    for (i = 0; i < result.length; i++) {
         if (result[i] !== userArray[i]) {
             OK = false;
         }
     }
+
+    //reinicializamos los arrays
     result = [];
     userArray = [];
 }
+
+/*****************************************************************
+ ************************ FIN VALIDACION TEST **********************
+ *******************************************************************/
 
 /**
  * Eliminamos toda la base de datos del navegador
  */
 function eliminaBD() {
+    //cada vez que iniciamos un test eliminamos los datos anteriores
     localStorage.clear();
 }
 
+/*****************************************************************
+ ************************ INICIO RESULTADO TEST ******************
+ *****************************************************************/
+
 /**
- * Resultado test
+ * Resultado test pantalla final
  */
 function resultado() {
     var resultado = "";
@@ -172,15 +179,16 @@ function resultado() {
     nom += " " + localStorage.getItem("apellido");
     document.getElementById("nom").innerHTML = nom;
 
-    /*
-        localStorage.getItem(test + "_crono");
-      localStorage.getItem(test + "_result");
-      */
-
+    // Mientras exsistan elementos en localStorage los introducimos en una variable que pintaremos por pantalla
     while (localStorage.getItem('test' + cont + '_result') != null) {
         var corno = localStorage.getItem('test' + cont + '_crono');
         var result = localStorage.getItem('test' + cont + '_result');
-        resultado = resultado + 'Test ' + cont + ' = ' + corno + " " + result + "<br>";
+        if (result) {
+            result = "<img class='result' src='imagenes/OK.png'><br>";
+        } else {
+            result = "<img class='result' src='imagenes/KO.png'><br>";
+        }
+        resultado = resultado + 'Test ' + cont + ' = ' + corno + " " + result;
         //tiempo = calculaTiempoTotal(tiempo, localStorage.getItem("test" + cont + '_crono'));
         cont++;
     }
@@ -202,3 +210,7 @@ function stringToSeconds(tiempo) {
     var sec = tiempo.substr(sep2 + 1);
     return (Number(sec) + (Number(min) * 60) + (Number(hor) * 3600));
 }
+
+/*****************************************************************
+ ************************ FIN RESULTADO TEST *********************
+ *****************************************************************/

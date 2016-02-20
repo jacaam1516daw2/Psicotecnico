@@ -6,11 +6,15 @@
     <title>Psicotécnico</title>
     <meta name="author" content="JCA" />
     <link href='http://fonts.googleapis.com/css?family=Telex' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="estils.css">
-    <script type="text/javascript" src="Test.js"></script>
+    <link rel="stylesheet" href="/style/style.css">
+    <script type="text/javascript" src="/scripts/Test.js"></script>
 </head>
 
 <body onload="cronometro(5)">
+    <div class="CuentaAtras">
+        <h3>Te queda: </h3>
+        <h2 id='CuentaAtras'></h2>
+    </div>
     <h3><p id="nom"></p></h3>
     <br>
     <br>
@@ -40,19 +44,19 @@
         </tr>
         <tr>
             <td>
-                <div class="DD" id="init1"><img id="drag1" src="imagenes/test1/anim4.png" draggable="true"></div>
+                <div class="DD" id="init1"><img id="drag1" class="preload" src="/imagenes/test1/anim4.png" draggable="true"></div>
             </td>
             <td>
-                <div class="DD" id="init2"><img id="drag2" src="imagenes/test1/anim5.png" draggable="true"></div>
+                <div class="DD" id="init2"><img id="drag2" class="preload" src="/imagenes/test1/anim5.png" draggable="true"></div>
             </td>
             <td>
-                <div class="DD" id="init3"><img id="drag3" src="imagenes/test1/anim2.png" draggable="true"></div>
+                <div class="DD" id="init3"><img id="drag3" class="preload" src="/imagenes/test1/anim2.png" draggable="true"></div>
             </td>
             <td>
-                <div class="DD" id="init4"><img id="drag4" src="imagenes/test1/anim3.png" draggable="true"></div>
+                <div class="DD" id="init4"><img id="drag4" class="preload" src="/imagenes/test1/anim3.png" draggable="true"></div>
             </td>
             <td>
-                <div class="DD" id="init5"><img id="drag5" src="imagenes/test1/anim1.png" draggable="true"></div>
+                <div class="DD" id="init5"><img id="drag5" class="preload" src="/imagenes/test1/anim1.png" draggable="true"></div>
             </td>
         </tr>
     </table>
@@ -60,7 +64,7 @@
         <h3>Tiempo:</h3>
         <h2 id='crono'>00:00:00</h2>
     </div>
-    <a href="Test2.html">
+    <a href="/tests/Test2.html">
         <input type="button" id="button" value="Siguiente" onclick="guardarTest('test1')" disabled /> </a>
 
 </body>

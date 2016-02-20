@@ -3,7 +3,7 @@
 body {
     font-family: 'Telex', sans-serif;
     text-align: center;
-    background-image: url(imagenes/back.jpg);
+    background-image: url(/imagenes//back.jpg);
 }
 
 table {
@@ -26,9 +26,14 @@ td {
 }
 
 .clock {
-    border: 3px;
     position: relative;
     left: 0px;
+    top: 7px;
+}
+
+.CuentaAtras {
+    position: absolute;
+    right: 30px;
     top: 7px;
 }
 

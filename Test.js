@@ -21,17 +21,26 @@ window.onload = function () {
     }
 
     function gestionarDrop(ev) {
-        // Cada vez que el usuario suelta un elemento lo guardamos en un array
-        // marcamos la posición segun el id del elemento por si corrige un elemento cambiandolo de posicion
-        // le restamos -1 para que en la validación del test coincidan las posiciones
-        var pos = parseInt(ev.target.id.substring(3, 4));
-        userArray[pos - 1] = ev.dataTransfer.getData("imatge");
+
+        var image = document.getElementById(ev.dataTransfer.getData("imatge")).src;
+        var origen = image.substring(image.length - 5, image.length - 4);
+        var destino = parseInt(ev.target.id.substring(3, 4));
 
         ev.preventDefault();
         // este condicional es para que no se puedan superponer varias imagenes en un elemento
+
         if (ev.target.nodeName !== "IMG") {
-            var data = ev.dataTransfer.getData("imatge");
-            ev.target.appendChild(document.getElementById(data));
+            if (origen == destino) {
+                document.getElementById('resultado').innerHTML = "<img class='result' src='imagenes/OK.png'>";
+                var data = ev.dataTransfer.getData("imatge");
+                ev.target.appendChild(document.getElementById(data));
+                conta = conta + 1;
+                if (parseInt(conta) == parseInt(finish)) {
+                    document.getElementById('button').disabled = false;
+                }
+            } else {
+                document.getElementById('resultado').innerHTML = "<img class='result' src='imagenes/KO.png'>";
+            }
         }
     }
 };
@@ -39,14 +48,14 @@ window.onload = function () {
 /*****************************************************************
  ********************* INICIO Cronometro *************************
  ******************************************************************/
-var OK = true;
 var inicio = 0;
 var timeout = 0;
 var result = "";
-var userArray = [];
-var result = [];
+var finish = 0;
+var conta = 0;
 
-function cronometro() {
+function cronometro(aciertos) {
+    finish = aciertos;
     mostrarDatos();
 
     if (timeout == 0) {
@@ -101,67 +110,14 @@ function mostrarDatos() {
 
 
 /**
- *******************************************************************
- ************************ INICIO VALIDACION TEST *******************
- *******************************************************************
  * Esta función guarda los datos de los resultados de cada uno de los test en localStorage
  */
 function guardarTest(test) {
-    //Con este switch llenamos result con las respuestas correctas del test
-    switch (test) {
-    case 'test1':
-        result = ["drag5", "drag3", "drag4", "drag1", "drag2"];
-        break;
-    case 'test2':
-        result = ["drag3", "drag1", "drag2"];
-        break;
-    case 'test3':
-        result = ["drag3", "drag2", "drag4", "drag1"];
-        break;
-    case 'test4':
-        result = ["drag2", "drag5", "drag3", "drag4", "drag1"];
-        break;
-    }
-
-    // Llamamos a la funcion que coteja el resultado correcto que contiene la array result
-    // con la que hemos llenado cada vez que el usuario ha soltado un elemento
-    resultTest(result, userArray);
+    conta = 0;
     // Guardamos el resultado de cada test en localStorage
     // ejemplo de lo que guarda: test1_crono = 00:00:05
     // ejemplo de lo que guarda: test1_result = true o false
     localStorage.setItem(test + "_crono", document.getElementById("crono").innerHTML);
-    localStorage.setItem(test + "_result", OK);
-}
-
-/**
- * Validación de cada Test
- */
-function resultTest(result, userArray) {
-    OK = true;
-    // recorremos el array de resultados correctos que previamente hemos llenado en la funcion guardarTest
-    //  y lo comparamos con la posicion de i con el array que se ha llenado cada vez que el usuario
-    // soltaba un elemento en la funcion gestionarDrop
-    for (i = 0; i < result.length; i++) {
-        if (result[i] !== userArray[i]) {
-            OK = false;
-        }
-    }
-
-    //reinicializamos los arrays
-    result = [];
-    userArray = [];
-}
-
-/*****************************************************************
- ************************ FIN VALIDACION TEST **********************
- *******************************************************************/
-
-/**
- * Eliminamos toda la base de datos del navegador
- */
-function eliminaBD() {
-    //cada vez que iniciamos un test eliminamos los datos anteriores
-    localStorage.clear();
 }
 
 /*****************************************************************
@@ -183,12 +139,7 @@ function resultado() {
     while (localStorage.getItem('test' + cont + '_result') != null) {
         var corno = localStorage.getItem('test' + cont + '_crono');
         var result = localStorage.getItem('test' + cont + '_result');
-        if (result) {
-            result = "<img class='result' src='imagenes/OK.png'><br>";
-        } else {
-            result = "<img class='result' src='imagenes/KO.png'><br>";
-        }
-        resultado = resultado + 'Test ' + cont + ' = ' + corno + " " + result;
+        resultado = resultado + 'Test ' + cont + ' = ' + corno + " <img class='result' src='imagenes/OK.png'><br>";
         //tiempo = calculaTiempoTotal(tiempo, localStorage.getItem("test" + cont + '_crono'));
         cont++;
     }

@@ -10,7 +10,7 @@
     <script type="text/javascript" src="Test.js"></script>
 </head>
 
-<body onload="cronometro()">
+<body onload="cronometro(5)">
     <h3><p id="nom"></p></h3>
     <br>
     <br>
@@ -34,23 +34,25 @@
             </td>
         </tr>
         <tr>
-            <td colspan="4"></td>
+            <td colspan="4">
+                <div id="resultado"></div>
+            </td>
         </tr>
         <tr>
             <td>
-                <div class="DD"><img id="drag1" src="imagenes/test1/anim4.png" draggable="true"></div>
+                <div class="DD" id="init1"><img id="drag1" src="imagenes/test1/anim4.png" draggable="true"></div>
             </td>
             <td>
-                <div class="DD"><img id="drag2" src="imagenes/test1/anim5.png" draggable="true"></div>
+                <div class="DD" id="init2"><img id="drag2" src="imagenes/test1/anim5.png" draggable="true"></div>
             </td>
             <td>
-                <div class="DD"><img id="drag3" src="imagenes/test1/anim2.png" draggable="true"></div>
+                <div class="DD" id="init3"><img id="drag3" src="imagenes/test1/anim2.png" draggable="true"></div>
             </td>
             <td>
-                <div class="DD"><img id="drag4" src="imagenes/test1/anim3.png" draggable="true"></div>
+                <div class="DD" id="init4"><img id="drag4" src="imagenes/test1/anim3.png" draggable="true"></div>
             </td>
             <td>
-                <div class="DD"><img id="drag5" src="imagenes/test1/anim1.png" draggable="true"></div>
+                <div class="DD" id="init5"><img id="drag5" src="imagenes/test1/anim1.png" draggable="true"></div>
             </td>
         </tr>
     </table>
@@ -59,7 +61,7 @@
         <h2 id='crono'>00:00:00</h2>
     </div>
     <a href="Test2.html">
-        <input type="button" value="Siguiente" onclick="guardarTest('test1')" /> </a>
+        <input type="button" id="button" value="Siguiente" onclick="guardarTest('test1')" disabled /> </a>
 
 </body>
 

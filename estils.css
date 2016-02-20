@@ -2,7 +2,12 @@
 
 body {
     font-family: 'Telex', sans-serif;
-    align-content: center;
+    text-align: center;
+    background-image: url(imagenes/back.jpg);
+}
+
+table {
+    margin: auto;
 }
 
 .DD {

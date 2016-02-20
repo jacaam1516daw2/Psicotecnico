@@ -10,14 +10,14 @@
     <script type="text/javascript" src="Test.js"></script>
 </head>
 
-<body onload="cronometro()">
+<body onload="cronometro(2)">
     <h3><p id="nom"></p></h3>
     <br>
     <h3>Completa la secuencia:</h3>
     <table>
         <tr>
             <td>
-                <div class="DD" id="div1"><img src="imagenes/test4/dom5.png" draggable="false"></div>
+                <div class="DD" id="div1"><img src="imagenes/test4/dom1.png" draggable="false"></div>
             </td>
             <td>
                 <div class="DD" id="div2"></div>
@@ -29,11 +29,13 @@
                 <div class="DD" id="div4"></div>
             </td>
             <td>
-                <div class="DD" id="div5"><img src="imagenes/test4/dom1.png" draggable="false"></div>
+                <div class="DD" id="div5"><img src="imagenes/test4/dom5.png" draggable="false"></div>
             </td>
         </tr>
         <tr>
-            <td colspan="4"></td>
+            <td colspan="4">
+                <div id="resultado"></div>
+            </td>
         </tr>
         <tr>
             <td>
@@ -61,7 +63,7 @@
     </div>
     <form>
         <a href="TestFin.html">
-            <input type="button" value="Finalizar" onclick="guardarTest('test4')" /> </a>
+            <input type="button" id="button" value="Finalizar" onclick="guardarTest('test4')" disabled/> </a>
     </form>
 </body>
 

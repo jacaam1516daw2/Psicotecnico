@@ -31,7 +31,7 @@ window.onload = function () {
 
         if (ev.target.nodeName !== "IMG") {
             if (origen == destino) {
-                document.getElementById('resultado').innerHTML = "<img class='result' src='/imagenes/OK.png'>";
+                document.getElementById('resultado').innerHTML = "<img class='result' src='../imagenes/OK.png'>";
                 var data = ev.dataTransfer.getData("imatge");
                 ev.target.appendChild(document.getElementById(data));
                 conta = conta + 1;
@@ -39,7 +39,7 @@ window.onload = function () {
                     document.getElementById('button').disabled = false;
                 }
             } else {
-                document.getElementById('resultado').innerHTML = "<img class='result' src='/imagenes/KO.png'>";
+                document.getElementById('resultado').innerHTML = "<img class='result' src='../imagenes/KO.png'>";
             }
         }
     }
@@ -193,7 +193,7 @@ function resultado() {
     // Mientras exsistan elementos en sessionStorage los introducimos en una variable que pintaremos por pantalla
     while (sessionStorage.getItem('test' + cont + '_crono') != null) {
         var crono = sessionStorage.getItem('test' + cont + '_crono');
-        resultado = resultado + 'Test ' + cont + ' = ' + crono + " <img class='result' src='/imagenes/OK.png'><br>";
+        resultado = resultado + 'Test ' + cont + ' = ' + crono + " <img class='result' src='../imagenes/OK.png'><br>";
         tiempo = parseInt(tiempo) + parseInt(calculaTiempoTotal(crono));
         cont++;
     }

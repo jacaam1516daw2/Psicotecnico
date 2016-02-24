@@ -2,6 +2,7 @@ CACHE MANIFEST
 
 CACHE:
 
+
 imagenes/test1/anim1.png
 imagenes/test1/anim2.png
 imagenes/test1/anim3.png
@@ -34,3 +35,4 @@ tests/Test4.html
 tests/TestFin.html
 tests/TimeOut.html
 style/style.css
+https://fonts.googleapis.com/css?family=Lobster

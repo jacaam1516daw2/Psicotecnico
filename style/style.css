@@ -1,17 +1,10 @@
+/*web fonts http://www.google.com/webfonts#HomePlace:home */
+
+
 /* importar font */
 
-@font-face {
-    font-family: 'Calligraffiti';
-    src: url('/fonts/Calligraffiti.ttf');
-}
-
-@font-face {
-    font-family: 'Regular';
-    src: url("/fonts/KaushanScript-Regular.otf");
-}
-
 body {
-    font-family: 'Calligraffiti', sans-serif;
+    font-family: 'Lobster', cursive;
     text-align: center;
     background-image: url("../imagenes/back.jpg");
 }
